@@ -1,0 +1,4 @@
+*.sw*
+/scripts/
+/.build/
+CPANfile-Parse-PPI*
