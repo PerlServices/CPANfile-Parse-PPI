@@ -76,6 +76,40 @@ Each element is a hashref with these keys:
         }
     ]
 
+# LIMITATIONS
+
+As this is a static parser, this module cannot handle dynamic
+code like
+
+    for my $module (qw/
+        IO::All
+        Zydeco::Lite::App
+    /) {
+        requires $module, '0';
+    }
+
+This module warns when the required "module" is a
+_PPI::Token::Quote::Interpolate_ token.
+
+You can make it die when you pass `-strict` to the module
+when you load it:
+
+    use CPANfile::Parse::PPI -strict;
+    use Data::Printer;
+
+    my $required = do { local $/; <DATA> };
+    my $cpanfile = CPANfile::Parse::PPI->new( \$required );
+    
+    my $modules = $cpanfile->modules;
+    
+    __DATA__
+    for my $module (qw/
+        IO::All
+        Zydeco::Lite::App
+    /) {
+        requires $module, '0';
+    }
+
 
 
 # Development
