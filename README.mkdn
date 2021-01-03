@@ -8,7 +8,7 @@ CPANfile::Parse::PPI - Parse _cpanfile_s with PPI
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # SYNOPSIS
 
@@ -88,8 +88,8 @@ code like
         requires $module, '0';
     }
 
-This module warns when the required "module" is a
-_PPI::Token::Quote::Interpolate_ token.
+This module warns when the required "module" doesn't look like
+a package name.
 
 You can make it die when you pass `-strict` to the module
 when you load it:

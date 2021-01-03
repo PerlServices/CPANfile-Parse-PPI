@@ -9,7 +9,7 @@ use PPI;
 use Moo;
 use Carp qw(carp croak);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 my $strict;
 
