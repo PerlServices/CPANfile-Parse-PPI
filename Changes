@@ -1,6 +1,10 @@
 Revision history for CPANfile::Parse::PPI
 =========================================
 
+0.04  2021-01-04  07:09:00
+
+  * Fix list of prereqs (Thanks to CPANtesters)
+
 0.03  2021-01-03  06:20:00
 
   * Add  a 'strict' mode (see https://github.com/PerlServices/CPANfile-Parse-PPI/commit/58f049)
