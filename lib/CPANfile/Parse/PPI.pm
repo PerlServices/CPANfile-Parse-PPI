@@ -10,8 +10,6 @@ use List::Util qw(first);
 use Moo;
 use PPI;
 
-our $VERSION = '0.04';
-
 my $strict;
 
 has meta => (
