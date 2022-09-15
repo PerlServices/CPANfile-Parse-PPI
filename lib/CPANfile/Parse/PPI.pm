@@ -237,11 +237,11 @@ sub _scan_attrs {
     # my $cpanfile = CPANfile::Parse::PPI->new( \$content );
     
     for my $module ( $cpanfile->modules->@* ) {
-        my $stage   = '';
-        my $feature = '';
-        $stage      = " on $module->{stage}" if $module->{stage};
-        $feature    = " on $module->{feature}" if $module->{feature};
-        say sprintf "%s is %s${stage}${feature}", $module->{name}, $module->{type};
+        my $stage   = $module->{stage}   ? " on $module->{stage}"            : '';
+        my $feature = $module->{feature} ? " for feature $module->{feature}" : '';
+
+        say sprintf "%s is %s",
+             $module->{name}, $module->{type}, $stage, $feature;
     }
 
 =head1 METHODS
@@ -258,7 +258,7 @@ sub _scan_attrs {
         recommends "Dist::Zilla" => 4.0;
         requires "Test2" => 2.311;
     }
-    feature sqlite, "SQLite Support" => sub {
+    feature 'sqlite', "SQLite Support" => sub {
         requires DBD::SQLite
     }
     CPANFILE
