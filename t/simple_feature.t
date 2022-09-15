@@ -9,11 +9,12 @@ use Test::More;
 ok 1;
 
 my $required = <<'CPANFILE';
-requires "CPANfile::Parse::PPI" => 3.6;;
 on build => sub {
-    recommends "Dist::Zilla" => 4.0;
     requires "Test2" => 2.311;
 };
+feature sqlite, "SQLite Support" => sub {
+    requires "DBD::SQlite",
+}
 CPANFILE
 
 my $cpanfile = CPANfile::Parse::PPI->new( \$required );
@@ -22,26 +23,19 @@ my $modules = $cpanfile->modules;
 is_deeply $modules,
   [
     {
-        name    => "CPANfile::Parse::PPI",
-        stage   => "",
-        type    => "requires",
-        feature => "",
-        version => '3.6'
-    },
-    {
-        name    => "Dist::Zilla",
-        stage   => "build",
-        type    => "recommends",
-        feature => "",
-        version => '4.0'
-    },
-    {
         name    => "Test2",
         stage   => "build",
         type    => "requires",
         feature => "",
         version => '2.311'
-    }
+    },
+    {
+        name    => "DBD::SQlite",
+        stage   => "",
+        type    => "requires",
+        feature => "sqlite",
+        version => ''
+    },
   ];
 
 done_testing();
