@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/perlservices/CPANfile-Parse-PPI.svg?branch=master)](https://travis-ci.org/perlservices/CPANfile-Parse-PPI)
-[![Kwalitee status](http://cpants.cpanauthors.org/dist/CPANfile-Parse-PPI.png)](https://cpants.cpanauthors.org/dist/CPANfile-Parse-PPI)
+[![Kwalitee status](https://cpants.cpanauthors.org/dist/CPANfile-Parse-PPI.png)](https://cpants.cpanauthors.org/dist/CPANfile-Parse-PPI)
 [![GitHub issues](https://img.shields.io/github/issues/perlservices/CPANfile-Parse-PPI.svg)](https://github.com/perlservices/CPANfile-Parse-PPI/issues)
 
 # NAME
@@ -22,9 +22,11 @@ version 0.05
     # my $cpanfile = CPANfile::Parse::PPI->new( \$content );
     
     for my $module ( $cpanfile->modules->@* ) {
-        my $stage = "";
-        $stage    = "on $module->{stage}" if $module->{stage};
-        say sprintf "%s is %s", $module->{name}, $module->{type};
+        my $stage   = $module->{stage}   ? " on $module->{stage}"            : '';
+        my $feature = $module->{feature} ? " for feature $module->{feature}" : '';
+
+        say sprintf "%s is %s",
+             $module->{name}, $module->{type}, $stage, $feature;
     }
 
 # METHODS
@@ -40,6 +42,9 @@ version 0.05
     on build => sub {
         recommends "Dist::Zilla" => 4.0;
         requires "Test2" => 2.311;
+    }
+    feature 'sqlite', "SQLite Support" => sub {
+        requires DBD::SQLite
     }
     CPANFILE
 
@@ -60,6 +65,7 @@ Each element is a hashref with these keys:
 - version
 - type
 - stage
+- feature
 
     use CPANfile::Parse::PPI;
     use Data::Printer;
