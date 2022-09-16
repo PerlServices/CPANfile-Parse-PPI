@@ -5,6 +5,8 @@ package CPANfile::Parse::PPI;
 use strict;
 use warnings;
 
+# VERSION
+
 use Carp qw(carp croak);
 use List::Util qw(first any);
 use Moo;
